@@ -1,67 +1,54 @@
-// server create karna and configs
+// server creating and configrations
 
 const express = require("express");
-const cors = require("cors");
 const notesModel = require("./models/note.model");
+const cors = require("cors");
 const app = express(); // server created
 
-
-// middleware
+// config
 app.use(express.json());
 app.use(cors());
-// POST /api/notes
-// Creating new notes
+
+// POST for creating new notes /api/notes
 app.post("/api/notes", async (req, res) => {
     const { title, description } = req.body;
-    const notes = await notesModel.create({
+    await notesModel.create({
         title, description
     });
     res.status(201).json({
-        message: "note created successfully!",
-        notes
+        message: "note created successfully!"
     });
+
 });
 
-// GET /api/notes
-// for fetching all notes and data
+
+// fetching notes we use GET
 app.get("/api/notes", async (req, res) => {
     const notes = await notesModel.find();
     res.status(200).json({
-        message: "Notes fetching successfully!",
-        notes
+        message: "note fetching successfully!", notes
     });
-
 });
 
-
-// PATCH /api/notes/:id
-// notes ya data mai kuch specific part change krna jaise abhi hum description kr rahe hai
+// update anything write now we update only description using note id /api/notes/:id using PATCH
 
 app.patch("/api/notes/:id", async (req, res) => {
     const id = req.params.id;
     const { description } = req.body;
-    const notes = await notesModel.findByIdAndUpdate(id, { description });
+    await notesModel.findByIdAndUpdate(id, { description });
     res.status(200).json({
-        message: "Note updated successfully!",
-        notes
+        message: "successfully updated description"
     });
 });
 
-// DELETE /api/notes/:id
-// Deleting any notes usig id
 
+// deleting notes
 app.delete("/api/notes/:id", async (req, res) => {
     const id = req.params.id;
     await notesModel.findByIdAndDelete(id);
     res.status(204).json({
-        message: "deleted successfully!"
+        message: "Deleted successfully!"
     });
 });
 
-
-
-
-
-
-// app exported
-module.exports = app;
+module.exports = app; 

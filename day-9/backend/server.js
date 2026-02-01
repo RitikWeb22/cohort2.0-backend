@@ -1,19 +1,14 @@
-// server running and mongodb connected
+// server running and mongodbconnect
 
+require("dotenv").config();
 const app = require("./src/app");
 const mongodbConnect = require("./src/config/database");
-// middleware
-require("dotenv").config();
 
 
-
-// database connected
+// mongodbconnected
 mongodbConnect();
 
-
-
-
-// server is running
+// server running 
 app.listen(3000, () => {
     console.log("server is running on port 3000");
 });

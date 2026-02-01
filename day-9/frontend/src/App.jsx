@@ -1,28 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import axios from "axios";
-function App() {
+const App = () => {
   const [notes, setNotes] = useState([
     {
-      title: "test title",
-      description: "test description",
+      title: "this is testing heading",
+      description: "this is testing description",
     },
   ]);
-  axios
-    .get("http://localhost:3000/api/notes")
-    .then((response) => {
-      setNotes(response.data.notes);
-      // setNotes(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
+
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/notes").then((res) => {
+      // console.log(res.data.notes);
+      setNotes(res.data.notes);
     });
+  }, []);
+
   return (
     <>
-      <h1 className="ourNotes">Our Notes</h1>
       <div className="notes">
-        {notes.map((note, index) => {
+        {notes.map((note, idx) => {
           return (
-            <div className="note" key={index}>
+            <div className="note" key={idx}>
               <h1>{note.title}</h1>
               <p>{note.description}</p>
             </div>
@@ -31,6 +30,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
 export default App;

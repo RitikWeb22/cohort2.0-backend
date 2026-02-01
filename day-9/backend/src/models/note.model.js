@@ -1,15 +1,14 @@
-// give the format and model creating
-const mongoose = require("mongoose");
+// database ko batana ki kis format mai data save hoga database
 
-
-// schema creating (format giving)
-
-const noteSchema = new mongoose.Schema({
+const { default: mongoose } = require("mongoose");
+// format
+const notesSchema = new mongoose.Schema({
     title: String,
     description: String
 });
 
-// model creating
-const notesModel = mongoose.model("notes", noteSchema);
+
+// model create
+const notesModel = mongoose.model("notes", notesSchema);
 
 module.exports = notesModel;
