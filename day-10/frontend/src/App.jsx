@@ -8,7 +8,7 @@ const App = () => {
 
   // 1. Fetching data - Isse function ke bahar rakha hai taaki har jagah use ho sake
   function FetchingNote() {
-    axios.get("http://localhost:3000/api/notes").then((res) => {
+    axios.get("cohort2-0-backend-1.onrender.com/api/notes").then((res) => {
       setNotes(res.data.note || res.data);
     });
   }
@@ -21,7 +21,10 @@ const App = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/api/notes", { title, description })
+      .post("cohort2-0-backend-1.onrender.com/api/notes", {
+        title,
+        description,
+      })
       .then(() => {
         setTitle(""); // Form clear karne ke liye
         setDescription("");
@@ -31,15 +34,20 @@ const App = () => {
 
   // 3. Delete note
   function deleteNote(noteId) {
-    axios.delete(`http://localhost:3000/api/notes/${noteId}`).then(() => {
-      FetchingNote(); // Delete hone ke BAAD fetch karega
-    });
+    axios
+      .delete(`cohort2-0-backend-1.onrender.com/api/notes/${noteId}`)
+      .then(() => {
+        FetchingNote(); // Delete hone ke BAAD fetch karega
+      });
   }
 
   // 4. Update
   function startUpateding(editId) {
     axios
-      .put(`http://localhost:3000/api/notes/${editId}`, { title, description })
+      .put(`cohort2-0-backend-1.onrender.com/api/notes/${editId}`, {
+        title,
+        description,
+      })
       .then(() => {
         setTitle("");
         setDescription("");
